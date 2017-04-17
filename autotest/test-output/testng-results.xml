@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="0" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="selenium_2_combat" duration-ms="11" started-at="2017-04-17T10:14:40Z" finished-at="2017-04-17T10:14:40Z">
+    <groups>
+    </groups>
+    <test name="Login" duration-ms="11" started-at="2017-04-17T10:14:40Z" finished-at="2017-04-17T10:14:40Z">
+    </test> <!-- Login -->
+    <test name="Home" duration-ms="11" started-at="2017-04-17T10:14:40Z" finished-at="2017-04-17T10:14:40Z">
+    </test> <!-- Home -->
+  </suite> <!-- selenium_2_combat -->
+</testng-results>
