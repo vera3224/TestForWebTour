@@ -33,7 +33,7 @@ import org.testng.internal.Utils;
 import org.testng.log4testng.Logger;
 import org.testng.xml.XmlSuite;
 
-import com.netease.qa.testng.utils.ConfigReader;
+import com.demo.test.plugins.arrow.utils.ConfigReader;
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -52,6 +52,7 @@ public class PowerEmailableReporter implements IReporter {
 	 */
 
 	private static final Logger L = Logger.getLogger(PowerEmailableReporter.class);
+
 	// ~ Instance fields ------------------------------------------------------
 
 	private PrintWriter m_out;
@@ -63,11 +64,9 @@ public class PowerEmailableReporter implements IReporter {
 	private Set<Integer> testIds = new HashSet<Integer>();
 	private List<Integer> allRunTestIds = new ArrayList<Integer>();
 	private JavaDocBuilder builder = new JavaDocBuilder();
-
 	// ~ Methods --------------------------------------------------------------
 
 	/** Creates summary of the run */
-	@Override
 	public void generateReport(List<XmlSuite> xml, List<ISuite> suites, String outdir) {
 		try {
 			m_out = createWriter(outdir);
@@ -559,7 +558,6 @@ public class PowerEmailableReporter implements IReporter {
 		// -------------------------------------------------------------
 
 		/** Arranges methods by classname and method name */
-		@Override
 		public int compare(IInvokedMethod o1, IInvokedMethod o2) {
 			// System.out.println("Comparing " + o1.getMethodName() + " " +
 			// o1.getDate()
@@ -583,7 +581,7 @@ public class PowerEmailableReporter implements IReporter {
 	 * @param className
 	 * @param method
 	 * @return
-	 * @author 
+	 * @author hzjingcheng
 	 */
 	private String getAuthors(String className, ITestNGMethod method) {
 		JavaClass cls = builder.getClassByName(className);
@@ -619,7 +617,7 @@ public class PowerEmailableReporter implements IReporter {
 	 * 
 	 * @param className
 	 * @return
-	 * @author 
+	 * @author hzjingcheng
 	 */
 	@SuppressWarnings("unused")
 	private String getClassComment(String className) {
@@ -632,7 +630,7 @@ public class PowerEmailableReporter implements IReporter {
 	 * 
 	 * @param result
 	 * @return
-	 * @author 
+	 * @author kevinkong
 	 */
 	private int getId(ITestResult result) {
 		int id = result.getTestClass().getName().hashCode();
@@ -646,7 +644,7 @@ public class PowerEmailableReporter implements IReporter {
 	 * 
 	 * @param context
 	 * @param suite
-	 * @author 
+	 * @author kevinkong
 	 */
 	private void getAllTestIds(ITestContext context, ISuite suite) {
 		IResultMap passTests = context.getPassedTests();
@@ -661,5 +659,4 @@ public class PowerEmailableReporter implements IReporter {
 			}
 		}
 	}
-
 }

@@ -36,7 +36,7 @@ public class SeleniumUtil {
 	public WebDriver window = null;
 	
 //	启动浏览器
-	public void launchBrowser(String browserName, ITestContext context, String webUrl, int timeOut) {
+	public void launchBrowser(String browserName, ITestContext context,String webUrl,int timeOut) {
 		SelectBrowser select = new SelectBrowser();
 		driver = select.selectExplorerByName(browserName, context);
 		try {
@@ -44,13 +44,15 @@ public class SeleniumUtil {
 			waitForPageLoading(timeOut);
 			get(webUrl);
 		} catch (TimeoutException e) {
-			// TODO: handle exception
-			logger.warn("注意：页面没有完全加载出来，刷新重试!!");
+			logger.warn("注意：页面没有完全加载出来，刷新重试！！");
 			refresh();
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			String status = (String) js.executeScript("return document.readyState");
-			logger.info("打印状态:"+status);
+			 JavascriptExecutor js = (JavascriptExecutor)driver;
+			String status= (String)js.executeScript("return document.readyState");
+		
+			
+			logger.info("打印状态："+status);
 		}
+
 	}
 	
 	
@@ -219,22 +221,24 @@ public class SeleniumUtil {
 //	获得输入框的值： 针对某些input输入框没有value属性，但又想取得input的值
 	public String getInputValue(String chose,String choseValue) {
 		String value = null;
-		switch (chose.toLowerCase()) {
+		switch(chose.toLowerCase()){
 		case "name":
-			String jsName = "return document.getElementsByName('"+choseValue+"')[0].value;";
-			value = (String)((JavascriptExecutor)driver).executeScript(jsName);
-			break;
-
-		case "id":
-			String jsId = "return document.getElementsById('"+choseValue+"').value;";
-			value = (String)((JavascriptExecutor)driver).executeScript(jsId);
-			break;
+			 String jsName = "return document.getElementsByName('"+choseValue+"')[0].value;"; //把JS执行的值 返回出去
+			 value = (String)((JavascriptExecutor) driver).executeScript(jsName);
+			 break;
 			
-		default:
-			logger.error("未定义的chose："+chose);
-			Assert.fail("未定义的chose："+chose);
+		case "id":
+			 String jsId = "return document.getElementById('"+choseValue+"').value;"; //把JS执行的值 返回出去
+			 value = (String)((JavascriptExecutor) driver).executeScript(jsId);
+			 break;
+		
+			default:
+				logger.error("未定义的chose:"+chose);
+				Assert.fail("未定义的chose:"+chose);
+		
 		}
 		return value;
+
 	}
 	
 //	等待alert 出现
@@ -325,7 +329,14 @@ public class SeleniumUtil {
 		options = s.getAllSelectedOptions();
 		return options;
 	}
-	
+//	遍历所有选项
+	public List<WebElement> selectAll(By by) {
+		Select s = new Select(driver.findElement(by));
+		for (WebElement e : s.getOptions()) {
+			e.click();
+		}
+		return s.getAllSelectedOptions();
+	}
 //	检查checkbox是否勾选
 	public boolean isCheckboxSelected(By elementLocator) {
 		if (findElement(elementLocator).isSelected() == true) {
@@ -341,27 +352,30 @@ public class SeleniumUtil {
 		String text = element.toString();
 		String expect = null;
 		try {
-			expect = text.substring(text.indexOf(expectText)+1, text.length()-1);
+			expect = text.substring(text.indexOf(expectText) + 1, text.length() - 1);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.error("Failed to find the string ["+expectText+"]");
+			logger.error("failed to find the string [" + expectText + "]");
+
 		}
+
 		return expect;
+
 	}
 	
 //	执行 Javascript 方法
 	public void executeJS(String js) {
-		((JavascriptExecutor)driver).executeScript(js);
-		logger.info("执行JavaScript语句：["+js+"]");
+		((JavascriptExecutor) driver).executeScript(js);
+		logger.info("执行JavaScript语句：[" + js + "]");
 	}
 	
- /*执行JavaScript 方法和对象
-  * 用法 seleniumUtil.executeJS("arguments[0].click();",
-  seleniumUtil.findElementBy(MyOrdersPage>MOP_TAB_ORDERCLOSE));
-  * */
+	/**
+	 * 执行JavaScript 方法和对象
+	 * 用法：seleniumUtil.executeJS("arguments[0].click();", seleniumUtil.findElementBy(MyOrdersPage.MOP_TAB_ORDERCLOSE));
+	 * */
 	public void executeJS(String js, Object... args) {
-		((JavascriptExecutor)driver).executeScript(js, args);
-		logger.info("执行Javascript语句:["+js+"]");
+		((JavascriptExecutor) driver).executeScript(js, args);
+		logger.info("执行JavaScript语句：[" + js + "]");
 	}
 	
 //	selenium模拟鼠标操作 - 鼠标移动到指定元素
@@ -390,16 +404,18 @@ public class SeleniumUtil {
 		pause(sleepTime);
 		Set<Cookie> cookies = driver.manage().getCookies();
 		for (Cookie c : cookies) {
-			System.out.println(c.getName()+"->"+c.getValue());
+			System.out.println(c.getName() + "->" + c.getValue());
 			if (c.getName().equals("logisticSessionid")) {
 				Cookie cook = new Cookie(c.getName(), c.getValue());
 				driver.manage().addCookie(cook);
-				System.out.println(c.getName()+"->"+c.getValue());
+				System.out.println(c.getName() + "->" + c.getValue());
 				System.out.println("添加成功");
-			}else{
+			} else {
 				System.out.println("没有找到logisticSessionid");
 			}
+
 		}
+
 	}
 	
 //	获得CSS value
@@ -443,7 +459,7 @@ public class SeleniumUtil {
 	public void handleUpload(String browser, File file) {
 		String filePath = file.getAbsolutePath();
 		String executeFile = "res/script/autoit/Upload.exe";
-		String cmd = "\""+executeFile+"\""+""+"\""+browser+"\""+""+"\""+filePath+"\"";
+		String cmd = "\"" + executeFile + "\"" + " " + "\"" + browser + "\"" + " " + "\"" + filePath + "\"";
 		try {
 			Process p = Runtime.getRuntime().exec(cmd);
 			p.waitFor();
@@ -461,10 +477,11 @@ public class SeleniumUtil {
 	public boolean isDisplayed(WebElement element) {
 		boolean isDisplay = false;
 		if (element.isDisplayed()) {
-			logger.info("The element:["+getLocatorByElement(element, ">")+"] is displayed");
+			logger.info("The element: [" + getLocatorByElement(element, ">") + "] is displayed");
 			isDisplay = true;
-		}else if (element.isDisplayed() == false) {
-			logger.warn("The element:["+getLocatorByElement(element, ">")+"] is not displayed");
+		} else if (element.isDisplayed() == false) {
+			logger.warn("The element: [" + getLocatorByElement(element, ">") + "] is not displayed");
+
 			isDisplay = false;
 		}
 		return isDisplay;
