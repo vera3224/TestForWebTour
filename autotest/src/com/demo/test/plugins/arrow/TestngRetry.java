@@ -1,5 +1,4 @@
 package com.demo.test.plugins.arrow;
-
 import org.apache.log4j.Logger;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
@@ -20,13 +19,12 @@ public class TestngRetry implements IRetryAnalyzer {
 		maxRetryCount = config.getRetryCount();
 		logger.info("RetryCount=" + maxRetryCount);
 		logger.info("SourceDir=" + config.getSourceCodeDir());
-		logger.info("SourceEncoding=" + config.getSrouceCodeEncoding());
+		logger.info("SourceEncoding=" + config.getSourceCodeEncoding());
 	}
 
 	public boolean retry(ITestResult result) {
 		if (retryCount <= maxRetryCount) {
-			String message = "Retry for： [" + result.getName() + "] on class [" + result.getTestClass().getName()
-					+ "] retry " + retryCount + " times";
+			String message = "Retry for： [" + result.getName() + "] on class [" + result.getTestClass().getName() + "] retry " + retryCount + " times";
 			logger.info(message);
 			Reporter.setCurrentTestResult(result);
 			Reporter.log("RunCount=" + (retryCount + 1));
@@ -34,7 +32,7 @@ public class TestngRetry implements IRetryAnalyzer {
 			return true;
 		}
 		return false;
-
+		
 	}
 
 	public static int getMaxRetryCount() {

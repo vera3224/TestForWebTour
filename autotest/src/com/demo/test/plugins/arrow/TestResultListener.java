@@ -27,7 +27,7 @@ public class TestResultListener extends TestListenerAdapter {
 
 	private static Logger logger = Logger.getLogger(TestResultListener.class.getName());
 	protected ITestContext testContext = null; // 这里也是新加的
-	String browser = null;
+	String  browser = null;
 
 	@Override
 	public void onStart(ITestContext testContext) { // 这里也是新加的，用于对context进行统一
@@ -41,7 +41,7 @@ public class TestResultListener extends TestListenerAdapter {
 		super.onTestFailure(tr);
 		logger.warn(tr.getName() + " 测试用例执行失败！");
 		WebDriver webDriver = (WebDriver) testContext.getAttribute("SELENIUM_DRIVER"); // 这里就是取driver
-		saveScreenShot(tr, webDriver, browser);
+		saveScreenShot(tr, webDriver,browser);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class TestResultListener extends TestListenerAdapter {
 		super.onTestSkipped(tr);
 		WebDriver webDriver = (WebDriver) testContext.getAttribute("SELENIUM_DRIVER");
 		logger.warn(tr.getName() + " 测试用例由于某些原因被跳过！");
-		saveScreenShot(tr, webDriver, browser);
+		saveScreenShot(tr, webDriver,browser);
 
 	}
 
@@ -103,8 +103,7 @@ public class TestResultListener extends TestListenerAdapter {
 			// deleted
 			// or delete this failed test if there is at least one passed
 			// version
-			if (failedTestIds.contains(failedTestId) || passedTestIds.contains(failedTestId)
-					|| skipTestIds.contains(failedTestId)) {
+			if (failedTestIds.contains(failedTestId) || passedTestIds.contains(failedTestId) || skipTestIds.contains(failedTestId)) {
 				testsToBeRemoved.add(failedTest);
 			} else {
 				failedTestIds.add(failedTestId);
@@ -112,8 +111,7 @@ public class TestResultListener extends TestListenerAdapter {
 		}
 
 		// finally delete all tests that are marked
-		for (Iterator<ITestResult> iterator = testContext.getFailedTests().getAllResults().iterator(); iterator
-				.hasNext();) {
+		for (Iterator<ITestResult> iterator = testContext.getFailedTests().getAllResults().iterator(); iterator.hasNext();) {
 			ITestResult testResult = iterator.next();
 			if (testsToBeRemoved.contains(testResult)) {
 				logger.info("移除重复失败的用例 = " + testResult.getName());
@@ -138,13 +136,13 @@ public class TestResultListener extends TestListenerAdapter {
 		try {
 			// 这里可以调用不同框架的截图功能
 			File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			filePath = "result/screenshot/" + fileName + ".jpg";
+			filePath = "result/screenshot/"+ fileName + ".jpg";
 			File destFile = new File(filePath);
 			FileUtils.copyFile(screenshot, destFile);
-			logger.info("[" + fileName + "] 截图成功，保存在：" + "[ " + filePath + " ]");
+			logger.info("["+fileName + "] 截图成功，保存在：" + "[ " + filePath + " ]");
 
 		} catch (Exception e) {
-			filePath = "[" + fileName + "]" + " ,截图失败，原因：" + e.getMessage();
+			filePath = "["+fileName+"]" + " ,截图失败，原因：" + e.getMessage();
 			logger.error(filePath);
 		}
 

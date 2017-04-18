@@ -16,12 +16,12 @@ import org.testng.Assert;
 
 /**
  * @author vera
- * @description: 读取Excel数据
- *               说明：
- *               Excel放在Data文件夹下
- *               Excel命名方式：测试类名.xls
- *               Excel的sheet命名方式：测试方法名
- *               Excel第一行为Map键值
+ * @description: 读取Excel数据<br>
+ *               说明：<br>
+ *               Excel放在Data文件夹下<br>
+ *               Excel命名方式：测试类名.xls<br>
+ *               Excel的sheet命名方式：测试方法名<br>
+ *               Excel第一行为Map键值<br>
  */
 public class ExcelDataProvider implements Iterator<Object[]> {
 

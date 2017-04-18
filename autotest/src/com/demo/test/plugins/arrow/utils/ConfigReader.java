@@ -1,5 +1,4 @@
 package com.demo.test.plugins.arrow.utils;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,10 +13,10 @@ public class ConfigReader {
 	private String sourceCodeDir = "src";
 	private String sourceCodeEncoding = "UTF-8";
 	private static final String RETRYCOUNT = "retrycount";
-	private static final String SOURCODEDIR = "sourcecodedir";
+	private static final String SOURCECODEDIR = "sourcecodedir";
 	private static final String SOURCECODEENCODING = "sourcecodeencoding";
 	private static final String CONFIGFILE = "./config/config.properties";
-	
+
 	private ConfigReader() {
 		readConfig(CONFIGFILE);
 	}
@@ -40,7 +39,7 @@ public class ConfigReader {
 				if (key.toLowerCase().equals(RETRYCOUNT)) {
 					sRetryCount = properties.getProperty(key);
 				}
-				if (key.toLowerCase().equals(SOURCODEDIR)) {
+				if (key.toLowerCase().equals(SOURCECODEDIR)) {
 					sourceCodeDir = properties.getProperty(key);
 				}
 				if (key.toLowerCase().equals(SOURCECODEENCODING)) {
@@ -66,10 +65,10 @@ public class ConfigReader {
 		return this.sourceCodeDir;
 	}
 
-	public String getSrouceCodeEncoding() {
+	public String getSourceCodeEncoding() {
 		return this.sourceCodeEncoding;
 	}
-	
+
 	/**
 	 * 
 	 * @param propertyFileName

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.demo.test.pageshelper;
 
 import org.openqa.selenium.By;
@@ -8,18 +5,24 @@ import org.openqa.selenium.By;
 import com.demo.test.utils.SeleniumUtil;
 
 /**
- * @author vera
- *2017年4月13日
- */
+ * @author 
+ * @description 这个帮助类主要是进行frame的跳进和跳出的操作
+ * */
 public class FramePageHelper {
-//	进入frame - 根据frame的元素定位进入
-	public static void jumpInToFrame(SeleniumUtil seleniumUtil,By by){
-		seleniumUtil.switchFrame(seleniumUtil.findElement(by));
-	}
 	
-//	回到默认的frame
-	public static void jumpOut(SeleniumUtil seleniumUtil) {
-		seleniumUtil.outFrame();
-	}
-
+	/**进入frame-根据frame的元素定位进入*/
+	public static void jumpInToFrame(SeleniumUtil seleniumUtil,By by){
+	
+	seleniumUtil.switchFrame(seleniumUtil.findElementBy(by));
+	
 }
+	/**回到默认的frame*/
+	public static void jumpOut(SeleniumUtil seleniumUtil){
+	
+	seleniumUtil.outFrame();
+	
+}
+	
+	
+
+	}

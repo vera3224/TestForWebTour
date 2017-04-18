@@ -1,14 +1,14 @@
 package com.demo.test.utils;
+
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 /**
  * @author vera
- *2017年4月11日
- */
-
-// 从.properties文件中读取相关测试数据
+ * @Desription 从.properties文件中读取相关测试数据<br>
+ * 
+ * */
 public class PropertiesDataProvider {
 
 	public static String getTestData(String configFilePath, String key) {
@@ -22,3 +22,4 @@ public class PropertiesDataProvider {
 
 	}
 }
+
